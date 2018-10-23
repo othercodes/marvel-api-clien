@@ -16,7 +16,7 @@ class Configuration extends Entity
      * Marvel API Endpoint URI
      * @var string
      */
-    protected $uri;
+    protected $uri = 'http://gateway.marvel.com';
 
     /**
      * Private key (hash)

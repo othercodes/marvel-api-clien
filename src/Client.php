@@ -35,11 +35,21 @@ class Client
         $this->http = $http;
     }
 
+    public function characters()
+    {
+
+    }
+
+    public function character($id)
+    {
+
+    }
+
     /**
      * @return Wrapper
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getComics()
+    public function comics()
     {
         $timestamp = time();
 
@@ -58,5 +68,42 @@ class Client
 
         return new Wrapper($body);
 
+    }
+
+    public function comic($id)
+    {
+
+    }
+
+    public function creators()
+    {
+    }
+
+    public function creator($id)
+    {
+    }
+
+    public function events()
+    {
+    }
+
+    public function event($id)
+    {
+    }
+
+    public function series()
+    {
+    }
+
+    public function serie($id)
+    {
+    }
+
+    public function stories()
+    {
+    }
+
+    public function story()
+    {
     }
 }
