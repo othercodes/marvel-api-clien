@@ -3,11 +3,13 @@
 namespace OtherCode\Marvel;
 
 
+use Doctrine\Common\Inflector\Inflector;
+
 /**
  * Class Entity
  * @package OtherCode\Marvel
  */
-class Entity implements \ArrayAccess
+class Entity
 {
 
     /**
@@ -97,16 +99,17 @@ class Entity implements \ArrayAccess
 
     /**
      * Entitize the given value into \OtherCode\Marvel\Entity
-     * @param string $key
+     * @param string $type
      * @param mixed $value
      * @return array|Entity
      */
-    public static function entitize($key, $value)
+    public static function entitize($type, $value)
     {
         switch (gettype($value)) {
             case 'object':
 
-                $entity = '\OtherCode\Marvel\Entities\\' . ucfirst($key);
+                $entity = strpos($type, '\\') === 0 ? $type
+                    : '\OtherCode\Marvel\Entities\\' . ucfirst(Inflector::singularize($type));
                 return class_exists($entity, true)
                     ? new $entity($value)
                     : new \OtherCode\Marvel\Entity($value);
@@ -114,11 +117,7 @@ class Entity implements \ArrayAccess
 
                 $array = [];
                 foreach ($value as $index => $item) {
-                    $entity = self::entitize($key, $item);
-                    isset($tmp->id)
-                        ? $array[$entity->id] = $entity
-                        : $array[$index] = $entity;
-
+                    $array[$index] = self::entitize($type, $item);
                 }
 
                 return $array;
@@ -129,34 +128,39 @@ class Entity implements \ArrayAccess
     }
 
     /**
-     * Return all the filled properties/arrays and \OtherCode\Marvel\Entity
-     * objects in array format
+     * Transform the given structure into array
      * @param mixed $value
      * @return array
      */
-    public function toArray($value = null)
+    public static function arrayize($value)
     {
-        if (!isset($value)) {
-            $value = $this;
-        }
-
         $array = [];
         foreach ($value as $key => $item) {
             switch (gettype($item)) {
                 case 'object':
                 case 'array':
-                    $buffer = $this->toArray($item);
+                    $buffer = self::arrayize($item);
                     if (!empty($buffer)) {
-                        $array[$key] = $buffer;
+                        $array[trim($key)] = $buffer;
                     }
                     break;
                 default:
                     if (isset($item)) {
-                        $array[$key] = $item;
+                        $array[trim($key)] = $item;
                     }
             }
         }
         return $array;
+    }
+
+    /**
+     * Return all the filled properties/arrays and \OtherCode\Marvel\Entity
+     * objects in array format
+     * @return array
+     */
+    public function toArray()
+    {
+        return self::arrayize($this);
     }
 
     /**
@@ -167,47 +171,6 @@ class Entity implements \ArrayAccess
     public function toJSON($pretty = false)
     {
         return json_encode($this->toArray(), $pretty ? JSON_PRETTY_PRINT : null);
-    }
-
-    /**
-     * Set an offset
-     * @param mixed $offset
-     * @param mixed $value
-     */
-    public function offsetSet($offset, $value)
-    {
-        $this->set($offset, $value);
-    }
-
-    /**
-     * Check if the given offset exists
-     * @param mixed $offset
-     * @return bool
-     */
-    public function offsetExists($offset)
-    {
-        return isset($this->{$offset});
-    }
-
-    /**
-     * Unset an offset
-     * @param mixed $offset
-     */
-    public function offsetUnset($offset)
-    {
-        unset($this->{$offset});
-    }
-
-    /**
-     * Return the requested offset
-     * @param mixed $offset
-     * @return mixed|null
-     */
-    public function offsetGet($offset)
-    {
-        return isset($this->{$offset})
-            ? $this->get($offset)
-            : null;
     }
 
 }

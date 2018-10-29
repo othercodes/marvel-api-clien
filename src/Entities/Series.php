@@ -9,7 +9,7 @@ use OtherCode\Marvel\Entity;
  * Class Serie
  * @package OtherCode\Marvel\Entities
  */
-class Serie extends Entity
+class Series extends Entity
 {
     public $id;
     public $title;

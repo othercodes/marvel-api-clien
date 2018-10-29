@@ -35,25 +35,17 @@ class Client
         $this->http = $http;
     }
 
-    public function characters()
-    {
-
-    }
-
-    public function character($id)
-    {
-
-    }
-
     /**
-     * @return Wrapper
+     * @param string $method Http veb GET|POST|PUT|PATCH|DELETE
+     * @param string $path Valid Uri path
+     * @return Object
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function comics()
+    public function sendRequest($method, $path)
     {
         $timestamp = time();
 
-        $response = $this->http->request('GET', trim($this->configuration->uri . '/v1/public/characters'), [
+        $response = $this->http->request(strtoupper($method), trim($this->configuration->uri . $path), [
             'headers' => [
                 'Content-Type' => 'application/json',
             ],
@@ -64,23 +56,79 @@ class Client
             ]
         ]);
 
-        $body = json_decode($response->getBody()->getContents());
+        // error handling
 
-        return new Wrapper($body);
-
+        return json_decode($response->getBody());
     }
 
+    /**
+     * Get the list of characters
+     * @return Wrapper
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function characters()
+    {
+        return new Wrapper(
+            $this->sendRequest('GET', '/v1/public/characters'),
+            '\OtherCode\Marvel\Entities\Character'
+        );
+    }
+
+    /**
+     * Get the character by id
+     * @param int $id The character id
+     * @return Wrapper
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function character($id)
+    {
+        return new Wrapper(
+            $this->sendRequest('GET', '/v1/public/characters' . trim($id)),
+            '\OtherCode\Marvel\Entities\Character'
+        );
+    }
+
+    /**
+     * Get the list of comics
+     * @return Wrapper
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function comics()
+    {
+        return new Wrapper(
+            $this->sendRequest('GET', '/v1/public/comics'),
+            '\OtherCode\Marvel\Entities\Comic'
+        );
+    }
+
+    /**
+     * Get a comic by id
+     * @param int $id The comic id
+     * @return Wrapper
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function comic($id)
     {
-
+        return new Wrapper(
+            $this->sendRequest('GET', '/v1/public/comics/' . trim($id)),
+            '\OtherCode\Marvel\Entities\Comic'
+        );
     }
 
     public function creators()
     {
+        return new Wrapper(
+            $this->sendRequest('GET', '/v1/public/creators'),
+            '\OtherCode\Marvel\Entities\Creators'
+        );
     }
 
     public function creator($id)
     {
+        return new Wrapper(
+            $this->sendRequest('GET', '/v1/public/creators/' . trim($id)),
+            '\OtherCode\Marvel\Entities\Creators'
+        );
     }
 
     public function events()
