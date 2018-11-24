@@ -28,6 +28,7 @@ class Client
     /**
      * Client constructor.
      * @param Configuration|null $configuration
+     * @param ClientInterface $http
      */
     public function __construct(Configuration $configuration, ClientInterface $http)
     {
@@ -41,7 +42,7 @@ class Client
      * @return Object
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function sendRequest($method, $path)
+    protected function sendRequest($method, $path)
     {
         $timestamp = time();
 
@@ -56,102 +57,92 @@ class Client
             ]
         ]);
 
-        // error handling
+        //file_put_contents(strtr(ltrim($path, '/'), ['/' => '.']) . '.json', $response->getBody());
 
         return json_decode($response->getBody());
     }
 
     /**
      * Get the list of characters
+     * @param int $id
      * @return Wrapper
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function characters()
+    public function characters($id = null)
     {
         return new Wrapper(
-            $this->sendRequest('GET', '/v1/public/characters'),
-            '\OtherCode\Marvel\Entities\Character'
-        );
-    }
-
-    /**
-     * Get the character by id
-     * @param int $id The character id
-     * @return Wrapper
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function character($id)
-    {
-        return new Wrapper(
-            $this->sendRequest('GET', '/v1/public/characters' . trim($id)),
+            $this->sendRequest('GET', '/v1/public/characters' . (isset($id) ? '/' . trim($id) : '')),
             '\OtherCode\Marvel\Entities\Character'
         );
     }
 
     /**
      * Get the list of comics
+     * @param int|null $id
      * @return Wrapper
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function comics()
+    public function comics($id = null)
     {
         return new Wrapper(
-            $this->sendRequest('GET', '/v1/public/comics'),
+            $this->sendRequest('GET', '/v1/public/comics' . (isset($id) ? '/' . trim($id) : '')),
             '\OtherCode\Marvel\Entities\Comic'
         );
     }
 
     /**
-     * Get a comic by id
-     * @param int $id The comic id
+     * Get the list of creators
+     * @param int|null $id
      * @return Wrapper
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function comic($id)
+    public function creators($id = null)
     {
         return new Wrapper(
-            $this->sendRequest('GET', '/v1/public/comics/' . trim($id)),
-            '\OtherCode\Marvel\Entities\Comic'
-        );
-    }
-
-    public function creators()
-    {
-        return new Wrapper(
-            $this->sendRequest('GET', '/v1/public/creators'),
+            $this->sendRequest('GET', '/v1/public/creators' . (isset($id) ? '/' . trim($id) : '')),
             '\OtherCode\Marvel\Entities\Creators'
         );
     }
 
-    public function creator($id)
+    /**
+     * Get the list of Events
+     * @param int|null $id
+     * @return Wrapper
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function events($id = null)
     {
         return new Wrapper(
-            $this->sendRequest('GET', '/v1/public/creators/' . trim($id)),
-            '\OtherCode\Marvel\Entities\Creators'
+            $this->sendRequest('GET', '/v1/public/events' . (isset($id) ? '/' . trim($id) : '')),
+            '\OtherCode\Marvel\Entities\Event'
         );
     }
 
-    public function events()
+    /**
+     * Get the list of series
+     * @param int|null $id
+     * @return Wrapper
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function series($id = null)
     {
+        return new Wrapper(
+            $this->sendRequest('GET', '/v1/public/series' . (isset($id) ? '/' . trim($id) : '')),
+            '\OtherCode\Marvel\Entities\Series'
+        );
     }
 
-    public function event($id)
+    /**
+     * Get the list of stories
+     * @param int|null $id
+     * @return Wrapper
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function stories($id = null)
     {
-    }
-
-    public function series()
-    {
-    }
-
-    public function serie($id)
-    {
-    }
-
-    public function stories()
-    {
-    }
-
-    public function story()
-    {
+        return new Wrapper(
+            $this->sendRequest('GET', '/v1/public/stories' . (isset($id) ? '/' . trim($id) : '')),
+            '\OtherCode\Marvel\Entities\Story'
+        );
     }
 }

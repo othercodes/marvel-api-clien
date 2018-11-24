@@ -7,6 +7,17 @@ use OtherCode\Marvel\Entity;
 
 /**
  * Class Creator
+ * @property int $id
+ * @property string $firstName
+ * @property string $middleName
+ * @property string $lastName
+ * @property string $suffix
+ * @property string $fullName
+ * @property string $modified
+ * @property EntityList|Series[] $series
+ * @property EntityList|Story[] $stories
+ * @property EntityList|Comic[] $comics
+ * @property EntityList|Event[] $events
  * @package OtherCode\Marvel\Entities
  */
 class Creator extends Entity
@@ -119,7 +130,7 @@ class Creator extends Entity
      */
     public function setComics($comics)
     {
-        $this->stories = (new EntityList(['type' => '\OtherCode\Marvel\Entities\Comic']))->hydrate($comics);
+        $this->comics = (new EntityList(['type' => '\OtherCode\Marvel\Entities\Comic']))->hydrate($comics);
     }
 
     /**
