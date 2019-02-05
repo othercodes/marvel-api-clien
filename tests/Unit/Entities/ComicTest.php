@@ -3,8 +3,9 @@
 namespace Test\Unit\Entities;
 
 use OtherCode\Marvel\Entities\Comic;
+use Test\TestCase;
 
-class ComicTest extends \PHPUnit_Framework_TestCase
+class ComicTest extends TestCase
 {
 
     public function testSetVariants()
@@ -12,7 +13,7 @@ class ComicTest extends \PHPUnit_Framework_TestCase
         $comic = new Comic();
         $comic->setVariants([]);
 
-        $this->assertInternalType('array', $comic->variants);
+        $this->assertIsArray($comic->variants);
         $this->assertCount(0, $comic->variants);
     }
 
@@ -66,12 +67,12 @@ class ComicTest extends \PHPUnit_Framework_TestCase
             "returned" => 0
         ]);
 
-        $this->assertInternalType('string', $comic->characters->collectionURI);
+        $this->assertIsString($comic->characters->collectionURI);
         $this->assertEquals('http://gateway.marvel.com/v1/public/comics/2088/characters',
             $comic->characters->collectionURI);
         $this->assertInstanceOf('\OtherCode\Marvel\Entities\EntityList', $comic->characters);
         $this->assertEquals('\OtherCode\Marvel\Entities\Character', $comic->characters->type);
-        $this->assertInternalType('array', $comic->characters->items);
+        $this->assertIsArray($comic->characters->items);
         $this->assertCount(0, $comic->characters->items);
         $this->assertEquals(0, $comic->characters->available);
         $this->assertEquals(0, $comic->characters->returned);

@@ -5,6 +5,10 @@ namespace Test;
 
 class TestCase extends \PHPUnit\Framework\TestCase
 {
+    public function tearDown(): void
+    {
+        \Mockery::close();
+    }
 
     /**
      * Return the content of a json file

@@ -17,12 +17,12 @@ class CreatorTest extends TestCase
             "returned" => 0
         ]);
 
-        $this->assertInternalType('string', $creator->series->collectionURI);
+        $this->assertIsString($creator->series->collectionURI);
         $this->assertEquals('http://gateway.marvel.com/v1/public/creators/7968/series',
             $creator->series->collectionURI);
         $this->assertInstanceOf('\OtherCode\Marvel\Entities\EntityList', $creator->series);
         $this->assertEquals('\OtherCode\Marvel\Entities\Series', $creator->series->type);
-        $this->assertInternalType('array', $creator->series->items);
+        $this->assertIsArray($creator->series->items);
         $this->assertCount(0, $creator->series->items);
         $this->assertEquals(0, $creator->series->available);
         $this->assertEquals(0, $creator->series->returned);
@@ -38,12 +38,12 @@ class CreatorTest extends TestCase
             "returned" => 0
         ]);
 
-        $this->assertInternalType('string', $creator->stories->collectionURI);
+        $this->assertIsString($creator->stories->collectionURI);
         $this->assertEquals('http://gateway.marvel.com/v1/public/creators/7968/stories',
             $creator->stories->collectionURI);
         $this->assertInstanceOf('\OtherCode\Marvel\Entities\EntityList', $creator->stories);
         $this->assertEquals('\OtherCode\Marvel\Entities\Story', $creator->stories->type);
-        $this->assertInternalType('array', $creator->stories->items);
+        $this->assertIsArray($creator->stories->items);
         $this->assertCount(0, $creator->stories->items);
         $this->assertEquals(0, $creator->stories->available);
         $this->assertEquals(0, $creator->stories->returned);
@@ -59,12 +59,12 @@ class CreatorTest extends TestCase
             "returned" => 0
         ]);
 
-        $this->assertInternalType('string', $creator->events->collectionURI);
+        $this->assertIsString($creator->events->collectionURI);
         $this->assertEquals('http://gateway.marvel.com/v1/public/creators/7968/events',
             $creator->events->collectionURI);
         $this->assertInstanceOf('\OtherCode\Marvel\Entities\EntityList', $creator->events);
         $this->assertEquals('\OtherCode\Marvel\Entities\Event', $creator->events->type);
-        $this->assertInternalType('array', $creator->events->items);
+        $this->assertIsArray($creator->events->items);
         $this->assertCount(0, $creator->events->items);
         $this->assertEquals(0, $creator->events->available);
         $this->assertEquals(0, $creator->events->returned);
@@ -80,12 +80,12 @@ class CreatorTest extends TestCase
             "returned" => 0
         ]);
 
-        $this->assertInternalType('string', $creator->comics->collectionURI);
+        $this->assertIsString($creator->comics->collectionURI);
         $this->assertEquals('http://gateway.marvel.com/v1/public/creators/7968/comics',
             $creator->comics->collectionURI);
         $this->assertInstanceOf('\OtherCode\Marvel\Entities\EntityList', $creator->comics);
         $this->assertEquals('\OtherCode\Marvel\Entities\Comic', $creator->comics->type);
-        $this->assertInternalType('array', $creator->comics->items);
+        $this->assertIsArray($creator->comics->items);
         $this->assertCount(0, $creator->comics->items);
         $this->assertEquals(0, $creator->comics->available);
         $this->assertEquals(0, $creator->comics->returned);
@@ -103,42 +103,42 @@ class CreatorTest extends TestCase
         $this->assertEquals('First Middle Last Names', $creator->fullName);
         $this->assertEquals('-0001-11-30T00:00:00-0500', $creator->modified);
 
-        $this->assertInternalType('string', $creator->series->collectionURI);
+        $this->assertIsString($creator->series->collectionURI);
         $this->assertEquals('http://gateway.marvel.com/v1/public/creators/7968/series',
             $creator->series->collectionURI);
         $this->assertInstanceOf('\OtherCode\Marvel\Entities\EntityList', $creator->series);
         $this->assertEquals('\OtherCode\Marvel\Entities\Series', $creator->series->type);
-        $this->assertInternalType('array', $creator->series->items);
+        $this->assertIsArray($creator->series->items);
         $this->assertCount(0, $creator->series->items);
         $this->assertEquals(0, $creator->series->available);
         $this->assertEquals(0, $creator->series->returned);
 
-        $this->assertInternalType('string', $creator->stories->collectionURI);
+        $this->assertIsString($creator->stories->collectionURI);
         $this->assertEquals('http://gateway.marvel.com/v1/public/creators/7968/stories',
             $creator->stories->collectionURI);
         $this->assertInstanceOf('\OtherCode\Marvel\Entities\EntityList', $creator->stories);
         $this->assertEquals('\OtherCode\Marvel\Entities\Story', $creator->stories->type);
-        $this->assertInternalType('array', $creator->stories->items);
+        $this->assertIsArray($creator->stories->items);
         $this->assertCount(0, $creator->stories->items);
         $this->assertEquals(0, $creator->stories->available);
         $this->assertEquals(0, $creator->stories->returned);
 
-        $this->assertInternalType('string', $creator->events->collectionURI);
+        $this->assertIsString($creator->events->collectionURI);
         $this->assertEquals('http://gateway.marvel.com/v1/public/creators/7968/events',
             $creator->events->collectionURI);
         $this->assertInstanceOf('\OtherCode\Marvel\Entities\EntityList', $creator->events);
         $this->assertEquals('\OtherCode\Marvel\Entities\Event', $creator->events->type);
-        $this->assertInternalType('array', $creator->events->items);
+        $this->assertIsArray($creator->events->items);
         $this->assertCount(0, $creator->events->items);
         $this->assertEquals(0, $creator->events->available);
         $this->assertEquals(0, $creator->events->returned);
 
-        $this->assertInternalType('string', $creator->comics->collectionURI);
+        $this->assertIsString($creator->comics->collectionURI);
         $this->assertEquals('http://gateway.marvel.com/v1/public/creators/7968/comics',
             $creator->comics->collectionURI);
         $this->assertInstanceOf('\OtherCode\Marvel\Entities\EntityList', $creator->comics);
         $this->assertEquals('\OtherCode\Marvel\Entities\Comic', $creator->comics->type);
-        $this->assertInternalType('array', $creator->comics->items);
+        $this->assertIsArray($creator->comics->items);
         $this->assertCount(0, $creator->comics->items);
         $this->assertEquals(0, $creator->comics->available);
         $this->assertEquals(0, $creator->comics->returned);
