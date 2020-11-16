@@ -31,5 +31,8 @@
     "psr-4": {
       "Test\\": "tests/"
     }
+  },
+  "scripts": {
+    "test": "phpunit --configuration phpunit.xml --testdox"
   }
 }
