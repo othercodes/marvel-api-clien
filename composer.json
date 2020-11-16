@@ -16,7 +16,7 @@
     "guzzlehttp/guzzle": "~6.0",
     "php-http/httplug": "^2.0",
     "php-http/guzzle6-adapter": "^2.0",
-    "monolog/monolog": "^1.24"
+    "monolog/monolog": "^1.24 || ^2.0"
   },
   "require-dev": {
     "ext-xdebug": "*",
